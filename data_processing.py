@@ -48,3 +48,7 @@ bins_labels = {
 # Apply discretization
 for col, bl in bins_labels.items():
     data = discretize_column(data, col, bl['bins'], bl['labels'])
+
+remove_cols = ['Foreign Worker', 'No of dependents', 'Guarantors','Duration in Current address']
+new_data = data.copy()
+new_data.drop(remove_cols,inplace= True, axis =1)
