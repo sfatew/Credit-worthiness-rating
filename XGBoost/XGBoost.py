@@ -163,7 +163,7 @@ def xgboost_model():
     'confusion_matrix': cm.tolist()  # Convert numpy array to list for JSON serialization
 }
 
-    with open('model_results.json', 'w') as json_file:
+    with open('XGBoost_evaluation.json', 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
     return model
