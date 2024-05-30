@@ -97,7 +97,7 @@ def xgboost_model():
     from sklearn.model_selection import StratifiedKFold, cross_val_score
 
 
-    kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
 
     accuracy = cross_val_score(model, X, y, cv=kfold, scoring='accuracy')
 
