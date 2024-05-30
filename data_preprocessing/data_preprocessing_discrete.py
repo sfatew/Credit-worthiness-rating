@@ -16,10 +16,10 @@ col_replacements = {
     'Length of current employment': {2: 1, 3: 2, 4: 3, 5: 4},
     'Occupation': {2: 1, 3: 2, 4: 3},
     'Sex & Marital Status': {2: 1, 3: 2, 4: 3},
-    'No of Credits at this Bank': {2: 1, 3: 1, 4: 1},
+    'No of Credits at this Bank': {3: 2, 4: 2},
     'Guarantors': {3: 2},
     'Concurrent Credits': {2: 1, 3: 2},
-    'Purpose': {i: 3 for i in range(4, 11)}
+    'Purpose': {**{i: 3 for i in range(4, 7)}, **{j: 0 for j in range(7, 11)}}
 }
 
 # Apply replacements
