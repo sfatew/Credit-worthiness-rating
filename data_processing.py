@@ -18,11 +18,11 @@ col_replacements = {
     'No of Credits at this Bank': {3: 2, 4: 2},
     'Guarantors': {3: 2},
     'Concurrent Credits': {2: 1, 3: 2},
-    'Purpose': {i: 3 for i in range(4, 11)}
+    'Purpose': {**{i: 3 for i in range(4, 7)}, **{j: 0 for j in range(7, 11)}}
 }
 
 # Apply replacements
-data = replace_values(data, col_replacements)
+data1 = replace_values(data1, col_replacements)
 
 # Function to discretize continuous variables
 def discretize_column(df, col, bins, labels):
@@ -33,11 +33,11 @@ def discretize_column(df, col, bins, labels):
 bins_labels = {
     'Duration of Credit (month)': {
         'bins': [0, 6, 12, 18, 24, 30, 36, 42, 48, 54, float('inf')],
-        'labels': [str(i) for i in range(10, 0, -1)]
+        'labels': [str(i) for i in range(1,11)]
     },
     'Credit Amount': {
         'bins': [0, 500, 1000, 1500, 2500, 5000, 7500, 10000, 15000, 20000, float('inf')],
-        'labels': [str(i) for i in range(10, 0, -1)]
+        'labels': [str(i) for i in range(1,11)]
     },
     'Age (years)': {
         'bins': [0, 26, 40, 60, 65, float('inf')],
