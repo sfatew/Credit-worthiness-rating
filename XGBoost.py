@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -98,25 +99,72 @@ def xgboost_model():
 
     kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-    mean_accuracy = cross_val_score(model, X, y, cv=kfold, scoring='accuracy')
+    accuracy = cross_val_score(model, X, y, cv=kfold, scoring='accuracy')
 
-    print(f'K-Fold CV Accuracy: {mean_accuracy.mean()} ± {mean_accuracy.std()}')
+    print(f'K-Fold CV Accuracy: {accuracy.mean()} ± {accuracy.std()}')
 
-    mean_f1 = cross_val_score(model, X, y, cv=kfold, scoring='f1')
+    f1 = cross_val_score(model, X, y, cv=kfold, scoring='f1')
 
-    print(f'K-Fold CV F1 Score: {mean_f1.mean()} ± {mean_f1.std()}')
+    print(f'K-Fold CV F1 Score: {f1.mean()} ± {f1.std()}')
 
-    mean_auc = cross_val_score(model, X, y, cv=kfold, scoring='roc_auc')
+    auc = cross_val_score(model, X, y, cv=kfold, scoring='roc_auc')
 
-    print(f'K-Fold CV AUC: {mean_auc.mean()} ± {mean_auc.std()}')
+    print(f'K-Fold CV AUC: {auc.mean()} ± {auc.std()}')
 
-    mean_recall = cross_val_score(model, X, y, cv=kfold, scoring='recall')
+    recall = cross_val_score(model, X, y, cv=kfold, scoring='recall')
 
-    print(f'K-Fold CV Recall: {mean_recall.mean()} ± {mean_recall.std()}')
+    print(f'K-Fold CV Recall: {recall.mean()} ± {recall.std()}')
 
-    mean_precision = cross_val_score(model, X, y, cv=kfold, scoring='precision')
+    precision = cross_val_score(model, X, y, cv=kfold, scoring='precision')
 
-    print(f'K-Fold CV Precision: {mean_precision.mean()} ± {mean_precision.std()}')
+    print(f'K-Fold CV Precision: {precision.mean()} ± {precision.std()}')
+
+    # Confusion Matrix after k-fold CV
+    y_true = []
+    y_pred = []
+
+    for train_index, test_index in kfold.split(X, y):
+        X_train, X_test = X.iloc[train_index], X.iloc[test_index]
+        y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+        
+        model.fit(X_train, y_train)
+        predictions = model.predict(X_test)
+        
+        y_true.extend(y_test)
+        y_pred.extend(predictions)
+
+    cm = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(10, 7))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Creditworthy', 'Creditworthy'], yticklabels=['Non-Creditworthy', 'Creditworthy'])
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.title('Confusion Matrix')
+    plt.show()
+
+    # Create a dictionary for the results
+
+    results = {
+        'acc': accuracy.mean(),
+        'precision': precision.mean(),
+        'recall': recall.mean(),
+        'f1': f1.mean(),
+        'auc': auc.mean(),
+        'confusion_matrix': cm.tolist()  # Convert numpy array to list for JSON serialization
+    }
+
+    # Create a JSON file to store the results
+
+    results = {
+    'acc': accuracy.mean(),
+    'precision': precision.mean(),
+    'recal': recall.mean(),
+    'f1': f1.mean(),
+    'auc': auc.mean(),
+    'confusion_matrix': cm.tolist()  # Convert numpy array to list for JSON serialization
+}
+
+    with open('model_results.json', 'w') as json_file:
+        json.dump(results, json_file, indent=4)
 
     return model
 
