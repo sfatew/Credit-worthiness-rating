@@ -55,4 +55,4 @@ remove_cols = ['Foreign Worker', 'No of dependents', 'Guarantors','Duration in C
 new_data = data.copy()
 new_data.drop(remove_cols,inplace= True, axis =1)
 
-new_data.to_csv("data\\new_german_credit_2.csv")
+new_data.to_csv("data\\new_german_credit_discrete.csv")
