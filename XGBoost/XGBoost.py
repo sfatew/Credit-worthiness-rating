@@ -1,8 +1,10 @@
 import json
+import joblib
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_curve, roc_auc_score, precision_score
@@ -44,6 +46,13 @@ def xgboost_model():
         if X[column].dtype == 'object':
             X[column] = label_encoder.fit_transform(X[column])
 
+    # Apply scaling
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    # Save the scaler
+    joblib.dump(scaler, 'scaler.joblib')
+    
     # Handling class imbalance
 
     smote = SMOTE(random_state=42)
