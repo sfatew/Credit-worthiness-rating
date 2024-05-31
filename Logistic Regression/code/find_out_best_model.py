@@ -23,6 +23,9 @@ X = scaler.fit_transform(X)
 # Initialize KFold
 skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
 
+# Initialize the model
+model = LogisticRegression()
+
 # Define the parameter grid
 param_grid = {
     'solver': ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga'],
@@ -30,15 +33,11 @@ param_grid = {
     'penalty': ['l2'],  # 'l1' or 'elasticnet' only supported by 'liblinear' and 'saga'
     'max_iter': [2000, 5000, 7500]
 }
-
-# Initialize the model
-model = LogisticRegression()
-
 # Initialize GridSearchCV
 grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=skf, scoring='roc_auc', n_jobs=-1, verbose=2)
 grid_search.fit(X, y)
 
-# Fit the model
+# Fit the hyperparmeter optimize algorithm
 grid_search.fit(X, y)
 
 # Get the best parameters
@@ -85,3 +84,5 @@ file_path = "E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness
 with open(file_path, "w") as json_file:
     json.dump(data, json_file)
 
+if __name__ == "__main__":
+    print("best parameter: ", best_model)
