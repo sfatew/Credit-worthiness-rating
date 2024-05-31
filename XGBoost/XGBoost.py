@@ -185,6 +185,9 @@ def xgboost_model():
     # Save results to a JSON file
     with open('XGBoost_evaluation.json', 'w') as json_file:
         json.dump(results, json_file, indent=4)
+    
+    # Save Model
+    pickle.dump(best_model, open('xgboost_model.pkl', 'wb'))
 
     return best_model
 
