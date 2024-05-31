@@ -7,7 +7,7 @@ def get_trained_model():
 
     # load hệ số cua model
     # Mở tệp JSON
-    with open('E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/model_coefficient.json', 'r') as f:
+    with open('model_coefficient.json', 'r') as f:
         coeficients_data = json.load(f)
 
     coeficients_data["coefficients"] = np.array(coeficients_data["coefficients"]).reshape(1, len(coeficients_data["coefficients"]))
