@@ -12,9 +12,9 @@
  * From the best parameter form the first program, we assign these into the initial model in this program.
 
 ### Free order after two program above
-evaluate.py: show the probability of the logit function with the given data 
-ROC_AUC_valuation.py: to visualize the ROC graph and give us the confusion matrix from evaluation with the K fold.
-calling_LogisticRegression_model.py: use the method get_trained_model to get the model by: 
+* **evaluate.py**: show the probability of the logit function with the given data 
+* **ROC_AUC_valuation.py**: to visualize the ROC graph and give us the confusion matrix from evaluation with the K fold.
+* **calling_LogisticRegression_model.py**: use the method get_trained_model to get the model by: 
     * import calling_LogisticRegression_model
-    model = get_trained_model(). 
+    * model = calling_LogisticRegression_model.get_trained_model(). 
 
