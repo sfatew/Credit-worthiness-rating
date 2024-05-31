@@ -1,1 +1,1 @@
-# Credit-worthiness-rating
+# Credit worthiness rating
