@@ -4,13 +4,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold, GridSearchCV, cross_val_score
+from sklearn.preprocessing import StandardScaler
 
 # Load data
-file_path = 'Credit-worthiness-rating/data/german_credit.csv'
+file_path = 'E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/data/new_german_credit.csv'
 data = np.loadtxt(file_path, delimiter=',', skiprows=1, dtype='int')
 
 X = data[:, 1:]
 y = data[:, 0]
+
+# khởi tạo scaler
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
 
 # Initialize KFold
 skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
@@ -28,6 +33,7 @@ model = LogisticRegression()
 
 # Initialize GridSearchCV
 grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=skf, scoring='roc_auc', n_jobs=-1, verbose=2)
+grid_search.fit(X, y)
 
 # Fit the model
 grid_search.fit(X, y)
@@ -52,8 +58,10 @@ data = {
     "AUC":np.mean(score_kf_auc),
 }
 
+print(data)
+
 # Specify the file path
-file_path = "Credit-worthiness-rating/LogisticRegression_result.json"
+file_path = "E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/LogisticRegression_result.json"
 
 # Write data to JSON file
 with open(file_path, "w") as json_file:

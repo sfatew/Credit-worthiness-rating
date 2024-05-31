@@ -3,11 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from imblearn.over_sampling import ADASYN
+# from sklearn.preprocessing import StandardScaler
 
 def get_coefficient():
 
     # Load data
-    file_path = 'Credit-worthiness-rating/data/german_credit.csv'
+    file_path = 'E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/data/new_german_credit.csv'
     data = np.loadtxt(file_path, delimiter=',', skiprows=1, dtype='int')
 
     X = data[:, 1:]
@@ -16,6 +17,10 @@ def get_coefficient():
     # ADASYN for X and y
     ada = ADASYN(random_state=42)
     X_res, y_res = ada.fit_resample(X, y)
+
+    # scale for data
+    # scaler = StandardScaler()
+    # X_scale = scaler.fit_transform(X_res)
 
     # initial model
     model = LogisticRegression(C = 1, max_iter = 5000, penalty = 'l2', solver = 'lbfgs')
@@ -39,7 +44,7 @@ if __name__ == '__main__':
     print(model_coeficient["intercept"])
     print(model_coeficient["classes"])
 
-    file_path = "Credit-worthiness-rating/model_coefficient.json"
+    file_path = "E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/model_coefficient.json"
     # Write data to JSON file
     with open(file_path, "w") as json_file:
         json.dump(model_coeficient, json_file)

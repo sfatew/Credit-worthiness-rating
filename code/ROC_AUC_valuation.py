@@ -7,7 +7,7 @@ from sklearn.metrics import roc_curve, auc, confusion_matrix, ConfusionMatrixDis
 from imblearn.over_sampling import ADASYN
 
 # Load data
-file_path = 'Credit-worthiness-rating/data/german_credit.csv'
+file_path = 'E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/data/new_german_credit.csv'
 data = np.loadtxt(file_path, delimiter=',', skiprows=1, dtype='int')
 
 X = data[:, 1:]

@@ -11,7 +11,7 @@ def sigmoid(x):
 model = LogisticRegression()
 
 
-file_path = 'Credit-worthiness-rating/data/german_credit.csv'
+file_path = 'E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/data/new_german_credit.csv'
 data = np.loadtxt(file_path, delimiter=',', skiprows=1, dtype='int')
 
 X = data[:, 1:]
@@ -19,7 +19,7 @@ y = data[:, 0]
 
 # load hệ số cua model
 # Mở tệp JSON
-with open('Credit-worthiness-rating/model_coefficient.json', 'r') as f:
+with open('E:/University/Kì 2023.2/Machine Learning/Project/Credit-worthiness-rating/model_coefficient.json', 'r') as f:
     coeficients_data = json.load(f)
 
 coeficients_data["coefficients"] = np.array(coeficients_data["coefficients"]).reshape(1, len(coeficients_data["coefficients"]))
