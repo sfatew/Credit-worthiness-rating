@@ -1,4 +1,5 @@
 # Credit worthiness rating
+(Corse project)
 
 ### we provide a 'requirment.txt' file for library downloading. Simplely use 'pip install -r requirements.txt' to download all the library needed for the program to run smoothly.
 
